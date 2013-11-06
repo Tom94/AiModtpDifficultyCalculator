@@ -115,8 +115,8 @@ namespace AiModtpDifficultyCalculator
         public double[] Strains = {1, 1};
         private Vector2 NormalizedStartPosition;
         private Vector2 NormalizedEndPosition;
-        public float LazySliderLengthFirst = 0;
-        public float LazySliderLengthSubsequent = 0;
+        private float LazySliderLengthFirst = 0;
+        private float LazySliderLengthSubsequent = 0;
         
 
         
@@ -232,7 +232,7 @@ namespace AiModtpDifficultyCalculator
 
       
 
-        private double DistanceTo(tpHitObject other)
+        public double DistanceTo(tpHitObject other)
         {
             // Scale the distance by circle size.
             return (NormalizedStartPosition - other.NormalizedEndPosition).Length();
