@@ -32,6 +32,7 @@ namespace AiModtpDifficultyCalculator
         {
             this.BaseHitObject = BaseHitObject;
 
+            // We will scale everything by this factor, so we can assume a uniform CircleSize among beatmaps.
             float ScalingFactor = (52.0f / CircleRadius);
             NormalizedStartPosition = BaseHitObject.Position * ScalingFactor;
             

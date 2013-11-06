@@ -27,6 +27,7 @@ namespace AiModtpDifficultyCalculator
 
         private const double STAR_SCALING_FACTOR = 0.045;
         private const double EXTREME_SCALING_FACTOR = 0.5;
+        private const float PLAYFIELD_WIDTH = 512;
 
 
         public override AiModType Type
@@ -42,12 +43,7 @@ namespace AiModtpDifficultyCalculator
 
             // Fill our custom tpHitObject class, that carries additional information
             tpHitObjects = new List<tpHitObject>(hitObjects.Count);
-
-            // Adjust position of all HitObjects, so we obtain a normalized HitObject radius, not depending on CircleSize
-
-            // Scale everything up, so everything is treated as CircleSize == 0
-            //float CircleSizePixel = (52 - Beatmap.DifficultyCircleSize * 4);
-            float CircleRadius = 32.0f * (1.0f - 0.7f * ((float)Beatmap.DifficultyCircleSize - 5.0f) / 5.0f);
+            float CircleRadius = (PLAYFIELD_WIDTH / 16.0f) * (1.0f - 0.7f * ((float)Beatmap.DifficultyCircleSize - 5.0f) / 5.0f);
 
             foreach(HitObjectBase hitObject in hitObjects)
             {
@@ -144,7 +140,7 @@ namespace AiModtpDifficultyCalculator
             // Find the highest strain value within each strain step
             List<double> HighestStrains = new List<double>();
             double IntervalEndTime = STRAIN_STEP;
-            double MaximumStrain = 0; // We need to keep track ob the maximum strain in the current interval
+            double MaximumStrain = 0; // We need to keep track of the maximum strain in the current interval
 
             tpHitObject PreviousHitObject = null;
             foreach (tpHitObject hitObject in tpHitObjects)
@@ -154,7 +150,7 @@ namespace AiModtpDifficultyCalculator
                 {
                     HighestStrains.Add(MaximumStrain);
 
-                    // The maximum strain of the next interval is not zero by default! We need to take the last hitObject we encountered, take it's strain and apply the decay
+                    // The maximum strain of the next interval is not zero by default! We need to take the last hitObject we encountered, take its strain and apply the decay
                     // until the beginning of the next interval.
                     if(PreviousHitObject == null)
                     {
